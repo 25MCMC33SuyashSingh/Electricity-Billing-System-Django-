@@ -65,6 +65,13 @@ Open http://127.0.0.1:8000/ in your browser.
 | Customer | `ashish`        | `ashish@123`|
 | Customer | `ajit.tiwari`   | `ajit@123`  |
 
+## Resources Used
+
+- **YouTube tutorials** — Django & Python beginner to intermediate tutorials for building the app, views, templates and auth flow
+- **ChatGPT / AI tools** — assistance with debugging, code structure, converting the Java desktop project into Django, and writing this documentation
+- **Django official docs** — [docs.djangoproject.com](https://docs.djangoproject.com)
+- **Previous Java project** — this Django app is a web reimplementation of my Java Swing + MySQL version at [Electricity-Billing-System-Java](https://github.com/25MCMC33SuyashSingh/Electricity-Billing-System-Java-)
+
 ## Project Structure
 
 ```
