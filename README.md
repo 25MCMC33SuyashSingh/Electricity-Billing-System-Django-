@@ -102,4 +102,4 @@ manage.py               # Django management script
 
 ## License
 
-For academic/educational use. Project for a B.Tech semester coursework.
+For academic/educational use. Project for a MCA semester coursework.
