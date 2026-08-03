@@ -1,0 +1,38 @@
+{% extends 'billing/base.html' %}
+{% block title %}New Customer - UPPCL Billing{% endblock %}
+{% block content %}
+<div class="card" style="max-width: 640px;">
+    <h2>Register New Customer (Uttar Pradesh)</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div>
+                <label>Customer Name</label>
+                <input type="text" name="name" required>
+            </div>
+            <div>
+                <label>City</label>
+                <input type="text" name="city">
+            </div>
+        </div>
+        <label>Address</label>
+        <input type="text" name="address">
+        <div class="row">
+            <div>
+                <label>State</label>
+                <select name="state">
+                    <option>Uttar Pradesh</option>
+                </select>
+            </div>
+            <div>
+                <label>Phone Number</label>
+                <input type="text" name="phone_no">
+            </div>
+        </div>
+        <label>Email</label>
+        <input type="email" name="email">
+        <p style="font-size: 13px; color: #666; margin-top: 10px;">A unique meter number will be generated automatically.</p>
+        <button class="btn" type="submit">Next (Meter Info)</button>
+    </form>
+</div>
+{% endblock %}

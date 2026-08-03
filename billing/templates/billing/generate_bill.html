@@ -1,0 +1,82 @@
+{% extends 'billing/base.html' %}
+{% block title %}Generate Bill - UPPCL Billing{% endblock %}
+{% block content %}
+<div class="card">
+    <h2>Electricity Bill &nbsp;|&nbsp; Meter: {{ customer.meter_no }}</h2>
+    <form method="get" class="row" style="align-items:end;">
+        <div>
+            <label>Select Month</label>
+            <select name="month" onchange="this.form.submit()">
+                <option value="">-- Choose --</option>
+                {% for m in months %}
+                <option value="{{ m }}" {% if m == month %}selected{% endif %}>{{ m }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div style="padding-bottom: 9px;">
+            <button class="btn" type="submit">Generate Bill</button>
+        </div>
+        {% if bill %}
+        <div style="padding-bottom: 9px; margin-left: 8px;">
+            <button class="btn btn-orange no-print" type="button" onclick="window.print()">Print Bill</button>
+        </div>
+        {% endif %}
+    </form>
+
+    {% if bill %}
+    <div class="print-area" style="margin-top: 18px;">
+        <div style="text-align: center; border-bottom: 3px solid #1b5e20; padding-bottom: 8px;">
+            <h2 style="color:#1b5e20;">UPPCL - Uttar Pradesh Power Corporation Limited</h2>
+            <h3 style="color:#e65100;">Lucknow Power Distribution Division</h3>
+            <p style="font-size: 13px;">{{ company.address }}</p>
+            <p style="font-size: 13px;">24x7 Helpline : {{ company.helpline }} &nbsp;|&nbsp; email : {{ company.email }}</p>
+        </div>
+        <h3 style="color:#1b5e20; margin: 12px 0;">Electricity Bill for the Month of {{ bill.month }}</h3>
+
+        <table>
+            <tr><td><b>Consumer Name</b></td><td>{{ customer.name }}</td>
+                <td><b>Meter Number</b></td><td>{{ customer.meter_no }}</td></tr>
+            <tr><td><b>Address</b></td><td>{{ customer.address }}</td>
+                <td><b>City</b></td><td>{{ customer.city }}</td></tr>
+            <tr><td><b>State</b></td><td>{{ customer.state }}</td>
+                <td><b>Bill Type</b></td><td>{{ meter.bill_type|default:"-" }}</td></tr>
+            <tr><td><b>Email</b></td><td>{{ customer.email|default:"-" }}</td>
+                <td><b>Phone</b></td><td>{{ customer.phone_no|default:"-" }}</td></tr>
+        </table>
+
+        <h3 style="color:#1b5e20; margin: 12px 0;">Meter & Tariff Details</h3>
+        <table>
+            <tr><td><b>Meter Location</b></td><td>{{ meter.meter_location|default:"-" }}</td>
+                <td><b>Meter Type</b></td><td>{{ meter.meter_type|default:"-" }}</td></tr>
+            <tr><td><b>Phase Code</b></td><td>{{ meter.phase_code|default:"-" }}</td>
+                <td><b>Billing Days</b></td><td>{{ meter.days|default:"-" }}</td></tr>
+        </table>
+
+        <h3 style="color:#1b5e20; margin: 12px 0;">Bill Summary</h3>
+        <table>
+            <tr style="background:#e8f5e9;"><th>Description</th><th>Amount (Rs.)</th></tr>
+            <tr><td>Energy Charges ( {{ bill.unit }} units x Rs. {{ tariff.unit_rate }} )</td>
+                <td>{{ bill.unit|add:0 }} x {{ tariff.unit_rate }}</td></tr>
+            <tr><td>Meter Rent</td><td>{{ tariff.meter_rent }}</td></tr>
+            <tr><td>Service Charge</td><td>{{ tariff.service_charge }}</td></tr>
+            <tr><td>Energy Tax ( {{ tariff.energy_tax }}% )</td><td>incl.</td></tr>
+            <tr><td>Green Cess</td><td>{{ tariff.green_cess }}</td></tr>
+            <tr><td>Fixed Charge</td><td>{{ tariff.fixed_charge }}</td></tr>
+            <tr style="background:#fff3e0;"><td><b>Grand Total</b></td><td><b>{{ bill.total_bill }}</b></td></tr>
+        </table>
+
+        <h3 style="color:#1b5e20; margin: 12px 0;">Payment Details</h3>
+        <table>
+            <tr><td><b>Status</b></td><td>{{ bill.status }}</td>
+                <td><b>Payment Mode</b></td><td>{{ bill.payment_method|default:"-" }}</td></tr>
+            <tr><td><b>Amount Paid</b></td><td>{{ bill.paid_amount|default:"-" }}</td>
+                <td><b>Payment Date & Time</b></td><td>{{ bill.payment_date|date:"d-M-Y H:i"|default:"-" }}</td></tr>
+        </table>
+
+        <p style="text-align:center; color:#666; margin-top: 14px;">This is a computer generated bill. Thank you for being a valued UPPCL consumer.</p>
+    </div>
+    {% elif month %}
+    <p>No bill generated for <b>{{ month }}</b>.</p>
+    {% endif %}
+</div>
+{% endblock %}

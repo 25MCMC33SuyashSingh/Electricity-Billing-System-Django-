@@ -1,0 +1,51 @@
+{% extends 'billing/base.html' %}
+{% block title %}Pay Bill - UPPCL Billing{% endblock %}
+{% block content %}
+<div class="card" style="max-width: 620px;">
+    <h2>Pay Electricity Bill Online</h2>
+    <form method="get" class="row" style="align-items:end;">
+        <div>
+            <label>Select Month</label>
+            <select name="month" onchange="this.form.submit()">
+                <option value="">-- Choose --</option>
+                {% for m in months %}
+                <option value="{{ m }}" {% if m == month %}selected{% endif %}>{{ m }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div style="padding-bottom: 9px;">
+            <button class="btn" type="submit">View Bill</button>
+        </div>
+    </form>
+
+    {% if month %}
+        {% if selected %}
+        <h3 style="margin-top: 20px;">Bill for {{ selected.month }}</h3>
+        <table>
+            <tr><td><b>Meter Number</b></td><td>{{ customer.meter_no }}</td></tr>
+            <tr><td><b>Name</b></td><td>{{ customer.name }}</td></tr>
+            <tr><td><b>Units Consumed</b></td><td>{{ selected.unit }}</td></tr>
+            <tr><td><b>Total Bill (Rs.)</b></td><td>{{ selected.total_bill }}</td></tr>
+            <tr><td><b>Status</b></td><td>
+                {% if selected.status == 'Paid' %}
+                    <span class="badge paid">{{ selected.status }}</span>
+                {% else %}
+                    <span class="badge unpaid">{{ selected.status }}</span>
+                {% endif %}
+            </td></tr>
+        </table>
+        {% if selected.status != 'Paid' %}
+        <form method="post" style="margin-top: 10px;">
+            {% csrf_token %}
+            <input type="hidden" name="month" value="{{ selected.month }}">
+            <button class="btn" type="submit" style="width: 100%;">Pay Rs. {{ selected.total_bill }} Now</button>
+        </form>
+        {% else %}
+        <p style="margin-top: 14px; color: #1b5e20;"><b>This bill has already been paid.</b></p>
+        {% endif %}
+        {% else %}
+        <p style="margin-top: 18px;">No bill found for <b>{{ month }}</b>.</p>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

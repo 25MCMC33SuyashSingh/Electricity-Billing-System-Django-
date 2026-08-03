@@ -1,0 +1,24 @@
+{% extends 'billing/base.html' %}
+{% block title %}Admin Dashboard - UPPCL Billing{% endblock %}
+{% block content %}
+<div class="card">
+    <h2>Admin Dashboard</h2>
+    <div class="stat">
+        <div class="box"><div class="num">{{ customers }}</div><div class="lbl">Customers</div></div>
+        <div class="box"><div class="num">{{ bills }}</div><div class="lbl">Total Bills</div></div>
+        <div class="box"><div class="num">{{ paid }}</div><div class="lbl">Paid</div></div>
+        <div class="box"><div class="num">{{ unpaid }}</div><div class="lbl">Unpaid</div></div>
+        <div class="box"><div class="num">{{ payments }}</div><div class="lbl">Payments</div></div>
+    </div>
+</div>
+<div class="card">
+    <h3>Quick Actions</h3>
+    <p>
+        <a class="btn" href="{% url 'add_customer' %}">+ New Customer</a>
+        <a class="btn btn-orange" href="{% url 'calculate_bill' %}">Calculate Bill</a>
+        <a class="btn" href="{% url 'submit_bill' %}">Submit Bill</a>
+        <a class="btn btn-orange" href="{% url 'customer_list' %}">Customer Details</a>
+        <a class="btn" href="{% url 'deposit_list' %}">Deposit Details</a>
+    </p>
+</div>
+{% endblock %}

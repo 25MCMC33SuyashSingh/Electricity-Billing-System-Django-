@@ -1,0 +1,33 @@
+{% extends 'billing/base.html' %}
+{% block title %}Customer Dashboard - UPPCL Billing{% endblock %}
+{% block content %}
+<div class="card">
+    <h2>Welcome, {{ customer.name }}</h2>
+    <p>Meter Number: <b>{{ customer.meter_no }}</b> &nbsp;|&nbsp; City: {{ customer.city }} &nbsp;|&nbsp;
+        Unpaid Bills: <b style="color:#e65100;">{{ unpaid_count }}</b></p>
+</div>
+<div class="card">
+    <h3>Your Bills</h3>
+    <table>
+        <tr><th>Month</th><th>Units</th><th>Total (Rs.)</th><th>Status</th><th>Payment Method</th><th>Payment Date</th></tr>
+        {% for bill in bills %}
+        <tr>
+            <td>{{ bill.month }}</td>
+            <td>{{ bill.unit }}</td>
+            <td>{{ bill.total_bill }}</td>
+            <td>
+                {% if bill.status == 'Paid' %}
+                    <span class="badge paid">{{ bill.status }}</span>
+                {% else %}
+                    <span class="badge unpaid">{{ bill.status }}</span>
+                {% endif %}
+            </td>
+            <td>{{ bill.payment_method|default:"-" }}</td>
+            <td>{{ bill.payment_date|date:"d-M-Y H:i"|default:"-" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">No bills yet.</td></tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

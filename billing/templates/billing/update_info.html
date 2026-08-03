@@ -1,0 +1,45 @@
+{% extends 'billing/base.html' %}
+{% block title %}Update Info - UPPCL Billing{% endblock %}
+{% block content %}
+<div class="card" style="max-width: 620px;">
+    <h2>Update My Information</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div>
+                <label>Name</label>
+                <input type="text" name="name" value="{{ customer.name }}" required>
+            </div>
+            <div>
+                <label>Meter Number</label>
+                <input type="text" value="{{ customer.meter_no }}" disabled>
+            </div>
+        </div>
+        <label>Address</label>
+        <input type="text" name="address" value="{{ customer.address }}">
+        <div class="row">
+            <div>
+                <label>City</label>
+                <input type="text" name="city" value="{{ customer.city }}">
+            </div>
+            <div>
+                <label>State</label>
+                <select name="state">
+                    <option {% if customer.state == 'Uttar Pradesh' %}selected{% endif %}>Uttar Pradesh</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <label>Email</label>
+                <input type="email" name="email" value="{{ customer.email }}">
+            </div>
+            <div>
+                <label>Phone Number</label>
+                <input type="text" name="phone_no" value="{{ customer.phone_no }}">
+            </div>
+        </div>
+        <button class="btn" type="submit">Update</button>
+    </form>
+</div>
+{% endblock %}

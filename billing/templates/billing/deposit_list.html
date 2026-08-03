@@ -1,0 +1,48 @@
+{% extends 'billing/base.html' %}
+{% block title %}Deposit Details - UPPCL Billing{% endblock %}
+{% block content %}
+<div class="card">
+    <h2>All Bills & Deposits</h2>
+    <form method="get" class="row">
+        <div>
+            <label>Search by Meter Number</label>
+            <input type="text" name="meter" value="{{ meter }}" placeholder="e.g. UP1234567">
+        </div>
+        <div>
+            <label>Search by Month</label>
+            <select name="month">
+                <option value="">All Months</option>
+                {% for m in months %}<option value="{{ m }}" {% if month == m %}selected{% endif %}>{{ m }}</option>{% endfor %}
+            </select>
+        </div>
+        <button class="btn" type="submit">Search</button>
+    </form>
+</div>
+<div class="card">
+    <table>
+        <tr><th>Meter No</th><th>Name</th><th>Month</th><th>Units</th><th>Total (Rs.)</th>
+            <th>Status</th><th>Method</th><th>Payment Date</th><th>Paid (Rs.)</th></tr>
+        {% for bill in bills %}
+        <tr>
+            <td>{{ bill.customer.meter_no }}</td>
+            <td>{{ bill.customer.name }}</td>
+            <td>{{ bill.month }}</td>
+            <td>{{ bill.unit }}</td>
+            <td>{{ bill.total_bill }}</td>
+            <td>
+                {% if bill.status == 'Paid' %}
+                    <span class="badge paid">{{ bill.status }}</span>
+                {% else %}
+                    <span class="badge unpaid">{{ bill.status }}</span>
+                {% endif %}
+            </td>
+            <td>{{ bill.payment_method|default:"-" }}</td>
+            <td>{{ bill.payment_date|date:"d-M-Y H:i"|default:"-" }}</td>
+            <td>{{ bill.paid_amount|default:"-" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="9">No bills found.</td></tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

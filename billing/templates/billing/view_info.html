@@ -1,0 +1,17 @@
+{% extends 'billing/base.html' %}
+{% block title %}My Information - UPPCL Billing{% endblock %}
+{% block content %}
+<div class="card" style="max-width: 620px;">
+    <h2>My Information</h2>
+    <table>
+        <tr><td><b>Name</b></td><td>{{ customer.name }}</td></tr>
+        <tr><td><b>Meter Number</b></td><td>{{ customer.meter_no }}</td></tr>
+        <tr><td><b>Address</b></td><td>{{ customer.address|default:"-" }}</td></tr>
+        <tr><td><b>City</b></td><td>{{ customer.city|default:"-" }}</td></tr>
+        <tr><td><b>State</b></td><td>{{ customer.state }}</td></tr>
+        <tr><td><b>Email</b></td><td>{{ customer.email|default:"-" }}</td></tr>
+        <tr><td><b>Phone Number</b></td><td>{{ customer.phone_no|default:"-" }}</td></tr>
+    </table>
+    <a class="btn" href="{% url 'update_info' %}">Edit</a>
+</div>
+{% endblock %}

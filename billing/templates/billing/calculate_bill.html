@@ -1,0 +1,29 @@
+{% extends 'billing/base.html' %}
+{% block title %}Calculate Bill - UPPCL Billing{% endblock %}
+{% block content %}
+<div class="card" style="max-width: 620px;">
+    <h2>Calculate Electricity Bill</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label>Customer</label>
+        <select name="customer_id" required>
+            {% for customer in customers %}
+            <option value="{{ customer.pk }}">{{ customer.meter_no }} - {{ customer.name }} ({{ customer.city }})</option>
+            {% endfor %}
+        </select>
+        <div class="row">
+            <div>
+                <label>Units Consumed</label>
+                <input type="number" name="unit" min="0" required>
+            </div>
+            <div>
+                <label>Month</label>
+                <select name="month">
+                    {% for m in months %}<option value="{{ m }}">{{ m }}</option>{% endfor %}
+                </select>
+            </div>
+        </div>
+        <button class="btn" type="submit">Generate Bill</button>
+    </form>
+</div>
+{% endblock %}

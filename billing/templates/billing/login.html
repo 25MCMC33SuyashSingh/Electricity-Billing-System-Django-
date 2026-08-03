@@ -1,0 +1,23 @@
+{% extends 'billing/base.html' %}
+{% block title %}Login - UPPCL Billing{% endblock %}
+{% block content %}
+<div class="card" style="max-width: 420px; margin: 40px auto;">
+    <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label>Username</label>
+        <input type="text" name="username" required>
+        <label>Password</label>
+        <input type="password" name="password" required>
+        <button class="btn" type="submit" style="width: 100%;">Login</button>
+    </form>
+    <p style="margin-top: 15px; font-size: 14px;">
+        Don't have an account? <a href="{% url 'register' %}">Register as Customer</a>
+    </p>
+    <div class="msg success" style="margin-top: 18px; font-size: 13px;">
+        <strong>Demo logins:</strong><br>
+        Customer: <code>suyash.singh</code> / <code>suyash@123</code><br>
+        Admin:&nbsp;&nbsp;&nbsp;&nbsp; <code>uppcladmin</code> / <code>admin123</code>
+    </div>
+</div>
+{% endblock %}

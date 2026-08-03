@@ -1,0 +1,36 @@
+{% extends 'billing/base.html' %}
+{% block title %}Register - UPPCL Billing{% endblock %}
+{% block content %}
+<div class="card" style="max-width: 460px; margin: 30px auto;">
+    <h2>Customer Registration</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div>
+                <label>Username</label>
+                <input type="text" name="username" required>
+            </div>
+            <div>
+                <label>Full Name</label>
+                <input type="text" name="name" required>
+            </div>
+        </div>
+        <label>Meter Number</label>
+        <input type="text" name="meter_no" placeholder="e.g. UP1234567" required>
+        <div class="row">
+            <div>
+                <label>Password</label>
+                <input type="password" name="password" required>
+            </div>
+            <div>
+                <label>Confirm Password</label>
+                <input type="password" name="confirm" required>
+            </div>
+        </div>
+        <button class="btn" type="submit" style="width: 100%;">Create Account</button>
+    </form>
+    <p style="margin-top: 15px; font-size: 14px;">
+        Already registered? <a href="{% url 'login' %}">Login</a>
+    </p>
+</div>
+{% endblock %}

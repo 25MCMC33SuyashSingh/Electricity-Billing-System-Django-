@@ -1,0 +1,54 @@
+{% extends 'billing/base.html' %}
+{% block title %}Meter Info - UPPCL Billing{% endblock %}
+{% block content %}
+<div class="card" style="max-width: 640px;">
+    <h2>Meter Details</h2>
+    <p>Customer: <b>{{ customer.name }}</b> &nbsp;|&nbsp; Meter: <b>{{ customer.meter_no }}</b></p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div>
+                <label>Meter Location</label>
+                <select name="meter_location">
+                    <option>Inside Premises</option>
+                    <option>Outside Premises</option>
+                </select>
+            </div>
+            <div>
+                <label>Meter Type</label>
+                <select name="meter_type">
+                    <option>Single-Phase</option>
+                    <option>Three-Phase</option>
+                    <option>Smart Meter</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <label>Phase Code</label>
+                <select name="phase_code">
+                    <option>011 - Lucknow</option>
+                    <option>022 - Kanpur</option>
+                    <option>033 - Agra</option>
+                    <option>044 - Varanasi</option>
+                    <option>055 - Gorakhpur</option>
+                    <option>066 - Meerut</option>
+                    <option>077 - Prayagraj</option>
+                </select>
+            </div>
+            <div>
+                <label>Bill Type</label>
+                <select name="bill_type">
+                    <option>Domestic</option>
+                    <option>Commercial</option>
+                    <option>Industrial</option>
+                    <option>Agricultural</option>
+                </select>
+            </div>
+        </div>
+        <label>Days</label>
+        <input type="text" name="days" value="30">
+        <button class="btn" type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}
